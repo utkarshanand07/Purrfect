@@ -26,8 +26,8 @@ const ProfilePage = () => {
       <div className="max-w-2xl mx-auto p-4 py-8">
         <div className="bg-base-300 rounded-xl p-6 space-y-8">
           <div className="text-center">
-            <h1 className="text-2xl font-semibold ">Profile</h1>
-            <p className="mt-2">Your profile information</p>
+            <h1 className="text-2xl font-semibold ">Your Profile</h1>
+            <p className="mt-2"></p>
           </div>
 
           {/* avatar upload section */}
@@ -60,9 +60,9 @@ const ProfilePage = () => {
                 />
               </label>
             </div>
-            <p className="text-sm text-zinc-400">
+            {/* <p className="text-sm text-zinc-400">
               {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
-            </p>
+            </p> */}
           </div>
 
           <div className="space-y-6">

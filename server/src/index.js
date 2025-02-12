@@ -1,22 +1,45 @@
-import express from 'express';
-import dotenv from 'dotenv';
+import express from "express";
+import dotenv from "dotenv"
 
-dotenv.config();
-const app = express();
+dotenv.config({
+    path: './env'
+})
 
-const port = process.env.PORT || 3000;
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
-// Middleware
+import path from "path";
+
+import { connectDB } from "./lib/db.js";
+
+import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
+import { app, server } from "./lib/socket.js";
+
+const PORT = process.env.PORT;
+const __dirname = path.resolve();
+
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
-app.use("/ap/auth", authRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
 
-// Routes
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/dist")));
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client", "dist", "index.html"));
+  });
+}
+
+server.listen(PORT, () => {
+  console.log("server is running on PORT:" + PORT);
+  connectDB();
 });
