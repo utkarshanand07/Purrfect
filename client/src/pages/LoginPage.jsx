@@ -4,6 +4,8 @@ import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare } from "lucide-react";
 
+import { useThemeStore } from "../store/useThemeStore";
+
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,6 +19,45 @@ const LoginPage = () => {
     login(formData);
   };
 
+  const { theme, setTheme } = useThemeStore();
+
+  const themeToLogoMap = {
+    light: '/logo_icon_black.png',
+  dark: '/logo_icon_white.png',
+  cupcake: '/logo_icon_black.png',
+  bumblebee: '/logo_icon_black.png',
+  emerald: '/logo_icon_black.png',
+  corporate: '/logo_icon_black.png',
+  synthwave: '/logo_icon_white.png',
+  retro: '/logo_icon_black.png',
+  cyberpunk: '/logo_icon_black.png',
+  valentine: '/logo_icon_black.png',
+  halloween: '/logo_icon_white.png',
+  garden: '/logo_icon_black.png',
+  forest: '/logo_icon_white.png',
+  aqua: '/logo_icon_white.png',
+  lofi: '/logo_icon_black.png',
+  pastel: '/logo_icon_black.png',
+  fantasy: '/logo_icon_black.png',
+  wireframe: '/logo_icon_black.png',
+  black: '/logo_icon_white.png',
+  luxury: '/logo_icon_white.png',
+  dracula: '/logo_icon_white.png',
+  cmyk: '/logo_icon_black.png',
+  autumn: '/logo_icon_black.png',
+  business: '/logo_icon_white.png',
+  acid: '/logo_icon_black.png',
+  lemonade: '/logo_icon_black.png',
+  night: '/logo_icon_white.png',
+  coffee: '/logo_icon_white.png',
+  winter: '/logo_icon_black.png',
+  dim: '/logo_icon_white.png',
+  nord: '/logo_icon_black.png',
+  sunset: '/logo_icon_white.png',
+  };
+
+  const logoSrc = themeToLogoMap[theme] || '/logo_icon_white.png';
+
   return (
     <div className="h-screen grid lg:grid-cols-2">
       {/* Left Side - Form */}
@@ -25,12 +66,13 @@ const LoginPage = () => {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
-              <div
+              {/* <div
                 className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20
               transition-colors"
-              >
-                <MessageSquare className="w-6 h-6 text-primary" />
-              </div>
+              > */}
+                <img src={logoSrc} alt="Logo" className="w-auto h-14" />
+                {/* <MessageSquare className="w-6 h-6 text-primary" /> */}
+              {/* </div> */}
               <h1 className="text-2xl font-bold mt-2">Welcome Back</h1>
               <p className="text-base-content/60">Sign in to your account</p>
             </div>
