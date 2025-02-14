@@ -22,11 +22,25 @@ const __dirname = path.resolve();
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
+// app.use(
+//   cors({
+//     // origin: "http://localhost:5173",
+//     origin: "*",
+//     credentials: true,
+//   })
+// );
 app.use(
   cors({
-    // origin: "http://localhost:5173",
-    origin: "*",
-    credentials: true,
+    origin: (origin, callback) => {
+      const allowedOrigins = ["http://localhost:5173"]; // List of allowed origins
+
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // Allow if origin is in the list OR if there's no origin (React Native)
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Needed for cookies/sessions
   })
 );
 
