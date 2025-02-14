@@ -24,13 +24,8 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || origin === "http://localhost:5173") {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    // origin: "http://localhost:5173",
+    origin: "*",
     credentials: true,
   })
 );
