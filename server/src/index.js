@@ -32,15 +32,17 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: (origin, callback) => {
-      const allowedOrigins = ["http://localhost:5173"]; // List of allowed origins
+      console.log("Request Origin:", origin); // Log the incoming origin
+
+      const allowedOrigins = ["http://localhost:5173"];
 
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Allow if origin is in the list OR if there's no origin (React Native)
+        callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true, // Needed for cookies/sessions
+    credentials: true,
   })
 );
 
